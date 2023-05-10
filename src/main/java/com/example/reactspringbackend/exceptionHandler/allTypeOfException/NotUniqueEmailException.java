@@ -9,6 +9,7 @@ public class NotUniqueEmailException extends Throwable {
     private String message;
 
     public NotUniqueEmailException(String message) {
+
         this.message = message;
     }
 }
