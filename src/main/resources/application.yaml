@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+email:
+  attachments:
+    path: /home/shakil/Downloads/Parts of Different Work/GmailSMTP/attachmentsFolder/some text file
+spring:
+  mail:
+    host: smtp.gmail.com
+    password: zqfmcewvejghwdhy
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: 07shakilhasan@gmail.com
+
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: admin
+    url: jdbc:mysql://localhost:3306/react-spring
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+    jpa-show-sql: true
+
+
