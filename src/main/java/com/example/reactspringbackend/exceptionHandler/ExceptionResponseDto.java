@@ -8,19 +8,20 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class ExceptionResponseDto {
 
-    private HttpStatus status;
+    private int status;
     private String message;
 
     private boolean isUniqueEmail = true;
 
-    public ExceptionResponseDto(HttpStatus status, String message) {
-        this.status = status;
-        this.message = message;
-    }
 
-    public ExceptionResponseDto(HttpStatus status, String message, boolean isUniqueEmail) {
+    public ExceptionResponseDto(int status, String message, boolean isUniqueEmail) {
         this.status = status;
         this.message = message;
         this.isUniqueEmail = isUniqueEmail;
+    }
+
+    public ExceptionResponseDto(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 }

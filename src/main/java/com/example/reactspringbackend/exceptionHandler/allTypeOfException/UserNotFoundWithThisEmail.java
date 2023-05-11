@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class RegisterNewUserException extends Throwable {
+public class UserNotFoundWithThisEmail extends Throwable{
     private String message;
-
-    public RegisterNewUserException(String message) {
+    public UserNotFoundWithThisEmail(String message) {
         this.message = message;
     }
 }

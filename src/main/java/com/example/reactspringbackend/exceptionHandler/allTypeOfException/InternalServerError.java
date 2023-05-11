@@ -1,16 +1,13 @@
 package com.example.reactspringbackend.exceptionHandler.allTypeOfException;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class RegisterNewUserException extends Throwable {
+public class InternalServerError extends Throwable {
     private String message;
-
-    public RegisterNewUserException(String message) {
+    public InternalServerError(String message){
         this.message = message;
     }
 }
