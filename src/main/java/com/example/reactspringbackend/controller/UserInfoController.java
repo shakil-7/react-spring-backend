@@ -1,6 +1,7 @@
 package com.example.reactspringbackend.controller;
 
 import com.example.reactspringbackend.dto.ResponseDto;
+import com.example.reactspringbackend.dto.UserDetailsDto;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
@@ -26,17 +27,15 @@ public class UserInfoController {
     public ResponseEntity<List<UserEntity>> getAllUserInfo() {
 
         List<UserEntity> allUsers = userService.getAllUsers();
-
-//        System.out.println("allUsers = " + allUsers);
         return new ResponseEntity<List<UserEntity>>(allUsers, HttpStatus.OK);
     }
 
 
     @GetMapping("/user")
-    public ResponseEntity<UserEntity> getUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
-//        System.out.println("email = " + email);
-        UserEntity user = userService.getUserByEmail(email);
-        return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+    public ResponseEntity<UserDetailsDto> getUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
+        System.out.println("email = " + email);
+        UserDetailsDto userDetails = userService.getUserDetails(email);
+        return new ResponseEntity<UserDetailsDto>(userDetails, HttpStatus.OK);
     }
 
     @DeleteMapping("/user")
@@ -46,4 +45,7 @@ public class UserInfoController {
         userService.deleteUserByEmail(email);
         return ResponseEntity.ok(new ResponseDto("successfully deleted"));
     }
+
+
+
 }
