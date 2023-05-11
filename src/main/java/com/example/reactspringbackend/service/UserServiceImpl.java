@@ -1,5 +1,6 @@
 package com.example.reactspringbackend.service;
 
+import com.example.reactspringbackend.dto.LoginDto;
 import com.example.reactspringbackend.dto.SignUpRequestDto;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
@@ -61,6 +62,32 @@ public class UserServiceImpl implements UserService{
         else{
 
 //            System.out.println("should throw exception");
+            throw new UserNotFoundWithThisEmail("There is no user with this email");
+        }
+    }
+
+    @Override
+    public void deleteUserByEmail(String email) throws UserNotFoundWithThisEmail {
+        Optional<UserEntity> user = userRepo.findByEmail(email);
+        if(user.isPresent()){
+            userRepo.deleteByEmail(user.get().getEmail());
+        }
+        else{
+            throw new UserNotFoundWithThisEmail("There is no user with this email");
+        }
+    }
+
+    @Override
+    public boolean login(LoginDto loginDto) throws UserNotFoundWithThisEmail {
+
+        String email = loginDto.getEmail();
+        String password = loginDto.getPassword();
+
+        Optional<UserEntity> user = userRepo.findByEmail(email);
+        if(user.isPresent()){
+            return user.get().getPassword().equals(password);
+        }
+        else{
             throw new UserNotFoundWithThisEmail("There is no user with this email");
         }
     }

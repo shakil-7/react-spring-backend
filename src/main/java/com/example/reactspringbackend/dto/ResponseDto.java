@@ -4,11 +4,16 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class ToClientResponse {
+public class ResponseDto {
     private HttpStatus status;
     private String message;
 
-    public ToClientResponse(HttpStatus status, String message) {
+
+    public ResponseDto(String message) {
+        this.message = message;
+    }
+
+    public ResponseDto(HttpStatus status, String message) {
         this.status = status;
         this.message = message;
     }

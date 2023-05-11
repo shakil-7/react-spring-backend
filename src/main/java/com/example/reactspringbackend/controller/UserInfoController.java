@@ -1,15 +1,18 @@
 package com.example.reactspringbackend.controller;
 
+import com.example.reactspringbackend.dto.ResponseDto;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisEmail;
 import com.example.reactspringbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -30,9 +33,17 @@ public class UserInfoController {
 
 
     @GetMapping("/user")
-    public ResponseEntity<UserEntity> getUserByEmail(@RequestParam(required = false) String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
+    public ResponseEntity<UserEntity> getUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
 //        System.out.println("email = " + email);
         UserEntity user = userService.getUserByEmail(email);
         return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user")
+    @Modifying
+    @Transactional
+    public ResponseEntity<?> deleteUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail {
+        userService.deleteUserByEmail(email);
+        return ResponseEntity.ok(new ResponseDto("successfully deleted"));
     }
 }

@@ -1,7 +1,7 @@
 package com.example.reactspringbackend.controller;
 
 import com.example.reactspringbackend.dto.SignUpRequestDto;
-import com.example.reactspringbackend.dto.ToClientResponse;
+import com.example.reactspringbackend.dto.ResponseDto;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.NotUniqueEmailException;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
 import com.example.reactspringbackend.service.UserService;
@@ -22,12 +22,12 @@ public class RegistrationController {
     private UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<ToClientResponse> register(@RequestBody SignUpRequestDto requestDto) throws RegisterNewUserException,
+    public ResponseEntity<ResponseDto> register(@RequestBody SignUpRequestDto requestDto) throws RegisterNewUserException,
                                                                             NotUniqueEmailException {
 
         userService.registerNewUser(requestDto);
 //        System.out.println("successfully registered");
-        return ResponseEntity.ok(new ToClientResponse(HttpStatus.OK, "Successfully registered"));
+        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "Successfully registered"));
     }
 
 }

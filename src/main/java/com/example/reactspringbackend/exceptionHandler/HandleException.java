@@ -1,9 +1,6 @@
 package com.example.reactspringbackend.exceptionHandler;
 
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.NotUniqueEmailException;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisEmail;
+import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,5 +34,11 @@ public class HandleException {
     public ResponseEntity<?> internalServerError(InternalServerError exception, WebRequest request) {
         ExceptionResponseDto responseDto = new ExceptionResponseDto( 500, exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<?> internalServerError(InvalidPasswordException exception, WebRequest request) {
+        ExceptionResponseDto responseDto = new ExceptionResponseDto( 400, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 }
