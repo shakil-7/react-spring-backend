@@ -1,5 +1,6 @@
 package com.example.reactspringbackend.service;
 
+import com.example.reactspringbackend.dto.AddMoneyDto;
 import com.example.reactspringbackend.dto.LoginDto;
 import com.example.reactspringbackend.dto.SignUpRequestDto;
 import com.example.reactspringbackend.dto.UserDetailsDto;
@@ -104,6 +105,20 @@ public class UserServiceImpl implements UserService{
         else{
             throw new UserNotFoundWithThisEmail("There is no user with this email");
         }
+    }
+
+    @Override
+    public void addMoney(AddMoneyDto dto) throws UserNotFoundWithThisEmail {
+
+        Optional<UserEntity> user = userRepo.findByEmail(dto.getEmail());
+        if(user.isPresent()){
+            AccountEntity account = accountRepo.findByUser(user.get());
+
+            account.setBalance(dto.getAmount() + account.getBalance());
+            accountRepo.save(account);
+            return;
+        }
+        throw new UserNotFoundWithThisEmail("No user with email " + dto.getEmail());
     }
 
     private boolean isUniqueEmail(String email) {

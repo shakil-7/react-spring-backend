@@ -1,6 +1,7 @@
 package com.example.reactspringbackend.service;
 
 
+import com.example.reactspringbackend.dto.AddMoneyDto;
 import com.example.reactspringbackend.dto.LoginDto;
 import com.example.reactspringbackend.dto.SignUpRequestDto;
 import com.example.reactspringbackend.dto.UserDetailsDto;
@@ -25,4 +26,6 @@ public interface UserService {
     boolean login(LoginDto loginDto) throws UserNotFoundWithThisEmail;
 
     UserDetailsDto getUserDetails(String email) throws InternalServerError, UserNotFoundWithThisEmail;
+
+    void addMoney(AddMoneyDto dto) throws UserNotFoundWithThisEmail;
 }
