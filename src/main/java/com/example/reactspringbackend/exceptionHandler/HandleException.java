@@ -41,4 +41,10 @@ public class HandleException {
         ExceptionResponseDto responseDto = new ExceptionResponseDto( 400, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<?> internalServerError(InsufficientBalanceException exception, WebRequest request) {
+        ExceptionResponseDto responseDto = new ExceptionResponseDto( 400, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+    }
 }

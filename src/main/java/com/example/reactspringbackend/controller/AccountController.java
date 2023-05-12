@@ -2,7 +2,9 @@ package com.example.reactspringbackend.controller;
 
 
 import com.example.reactspringbackend.dto.AddMoneyDto;
+import com.example.reactspringbackend.dto.MoneyTransferDto;
 import com.example.reactspringbackend.dto.ResponseDto;
+import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InsufficientBalanceException;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisEmail;
 import com.example.reactspringbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,12 @@ public class AccountController {
 //        System.out.println(dto);
         userService.addMoney(dto);
         return new ResponseEntity< ResponseDto > (new ResponseDto("success"),HttpStatus.OK);
+    }
+
+    @PostMapping("/send_money")
+    public ResponseEntity<?> sendMoney(@RequestBody MoneyTransferDto dto) throws UserNotFoundWithThisEmail, InsufficientBalanceException {
+        System.out.println("dto = " + dto);
+        userService.sendMoney(dto);
+        return new ResponseEntity< ResponseDto> (new ResponseDto("success"),HttpStatus.OK);
     }
 }

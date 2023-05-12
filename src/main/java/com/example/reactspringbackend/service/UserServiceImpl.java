@@ -1,17 +1,12 @@
 package com.example.reactspringbackend.service;
 
-import com.example.reactspringbackend.dto.AddMoneyDto;
-import com.example.reactspringbackend.dto.LoginDto;
-import com.example.reactspringbackend.dto.SignUpRequestDto;
-import com.example.reactspringbackend.dto.UserDetailsDto;
+import com.example.reactspringbackend.dto.*;
 import com.example.reactspringbackend.entity.AccountEntity;
 import com.example.reactspringbackend.entity.UserEntity;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.NotUniqueEmailException;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisEmail;
+import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 import com.example.reactspringbackend.repository.AccountRepo;
 import com.example.reactspringbackend.repository.UserRepo;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -119,6 +114,46 @@ public class UserServiceImpl implements UserService{
             return;
         }
         throw new UserNotFoundWithThisEmail("No user with email " + dto.getEmail());
+    }
+
+    @Override
+    public void sendMoney(MoneyTransferDto dto) throws UserNotFoundWithThisEmail, InsufficientBalanceException {
+        String senderEmail = dto.getSenderEmail();
+        String receiverEmail = dto.getReceiverEmail();
+        double amount = dto.getAmount();
+        
+        
+
+        Optional<UserEntity> sender = userRepo.findByEmail(senderEmail);
+        if(sender.isPresent()){
+//            System.out.println("sender.get() = " + sender.get());
+            Optional<UserEntity> receiver = userRepo.findByEmail(receiverEmail);
+            if(receiver.isPresent()){
+
+                AccountEntity senderAccount = accountRepo.findByUser(sender.get());
+                AccountEntity receiverAccount = accountRepo.findByUser(receiver.get());
+
+                double senderCurrentBalance = senderAccount.getBalance();
+                double receiverCurrentBalance = receiverAccount.getBalance();
+
+                if(senderCurrentBalance < amount){
+                    throw new InsufficientBalanceException("Not Enough Balance");
+                }
+                else{
+                    senderAccount.setBalance(senderCurrentBalance - amount);
+                    receiverAccount.setBalance(receiverCurrentBalance + amount);
+                    accountRepo.save(senderAccount);
+                    accountRepo.save(receiverAccount);
+                }
+
+            }
+            else{
+                throw new UserNotFoundWithThisEmail("No user with email: \n" + dto.getReceiverEmail());
+            }
+        }
+        else{
+            throw new UserNotFoundWithThisEmail("No user with email: \n" + dto.getSenderEmail());
+        }
     }
 
     private boolean isUniqueEmail(String email) {
