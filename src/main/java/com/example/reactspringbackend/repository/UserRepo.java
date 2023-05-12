@@ -15,4 +15,5 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByMobileNumber(String mobileNumber);
 
+    void deleteByMobileNumber(String email);
 }

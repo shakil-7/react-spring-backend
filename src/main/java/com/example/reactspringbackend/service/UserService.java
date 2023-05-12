@@ -22,4 +22,6 @@ public interface UserService {
     void addMoney(AddMoneyDto dto) throws UserNotFoundWithThisMobileNumber;
 
     void sendMoney(MoneyTransferDto dto) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException;
+
+    void deleteUserByMobileNumber(String mobileNumber) throws UserNotFoundWithThisMobileNumber;
 }

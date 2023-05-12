@@ -150,6 +150,18 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public void deleteUserByMobileNumber(String mobileNumber) throws UserNotFoundWithThisMobileNumber {
+        Optional<UserEntity> user = userRepo.findByMobileNumber(mobileNumber);
+        if(user.isPresent()){
+            accountRepo.deleteUserByUser(user.get());
+            userRepo.deleteByMobileNumber(user.get().getMobileNumber());
+        }
+        else{
+            throw new UserNotFoundWithThisMobileNumber("There is no user with this email");
+        }
+    }
+
     private boolean isUniqueMobileNumber(String mobileNumber) {
         Optional<UserEntity> user = userRepo.findByMobileNumber(mobileNumber);
         return user.isEmpty();

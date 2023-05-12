@@ -34,6 +34,8 @@ public class UserInfoController {
     @GetMapping("/user")
     public ResponseEntity<UserDetailsDto> getUserByMobileNumber(@RequestParam String mobileNumber) throws UserNotFoundWithThisMobileNumber, InternalServerError, RegisterNewUserException {
 //        System.out.println("email = " + email);
+
+//        System.out.println("mobileNumber = " + mobileNumber);
         UserDetailsDto userDetails = userService.getUserDetails(mobileNumber);
         return new ResponseEntity<UserDetailsDto>(userDetails, HttpStatus.OK);
     }
@@ -41,8 +43,8 @@ public class UserInfoController {
     @DeleteMapping("/user")
     @Modifying
     @Transactional
-    public ResponseEntity<?> deleteUserByEmail(@RequestParam String email) throws UserNotFoundWithThisMobileNumber {
-        userService.deleteUserByEmail(email);
+    public ResponseEntity<?> deleteUserByMobileNumber(@RequestParam String mobileNumber) throws UserNotFoundWithThisMobileNumber {
+        userService.deleteUserByMobileNumber(mobileNumber);
         return ResponseEntity.ok(new ResponseDto("successfully deleted"));
     }
 
