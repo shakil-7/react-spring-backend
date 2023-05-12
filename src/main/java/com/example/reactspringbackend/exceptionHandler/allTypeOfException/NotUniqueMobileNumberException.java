@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class NotUniqueEmailException extends Throwable {
+public class NotUniqueMobileNumberException extends Throwable {
     private String message;
 
-    public NotUniqueEmailException(String message) {
+    public NotUniqueMobileNumberException(String message) {
 
         this.message = message;
     }

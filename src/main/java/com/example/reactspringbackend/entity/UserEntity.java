@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 @Table(
        uniqueConstraints = @UniqueConstraint(
-               columnNames = {"email"},
-               name = "email_unique"
+               columnNames = {"mobileNumber"},
+               name = "mobileNumber_unique"
        )
 )
 public class UserEntity {
@@ -20,6 +20,7 @@ public class UserEntity {
 
     private String name;
     private String email;
+    private String mobileNumber;
     private String password;
     private String gender;
 }

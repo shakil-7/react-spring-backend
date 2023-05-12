@@ -1,5 +1,6 @@
 package com.example.reactspringbackend.exceptionHandler;
 
+import com.example.reactspringbackend.dto.ResponseDto;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +19,15 @@ public class HandleException {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
     }
 
-    @ExceptionHandler(NotUniqueEmailException.class)
-    public ResponseEntity<?> notUniqueEmail(NotUniqueEmailException exception, WebRequest request) {
-        ExceptionResponseDto responseDto = new ExceptionResponseDto( 500, exception.getMessage(), false);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
+    @ExceptionHandler(NotUniqueMobileNumberException.class)
+    public ResponseEntity<?> notUniqueEmail(NotUniqueMobileNumberException exception, WebRequest request) {
+
+        ResponseDto responseDto = new ResponseDto(400, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
 
-    @ExceptionHandler(UserNotFoundWithThisEmail.class)
-    public ResponseEntity<?> userNotFoundWithThisEmail(UserNotFoundWithThisEmail exception, WebRequest request) {
+    @ExceptionHandler(UserNotFoundWithThisMobileNumber.class)
+    public ResponseEntity<?> userNotFoundWithThisEmail(UserNotFoundWithThisMobileNumber exception, WebRequest request) {
         ExceptionResponseDto responseDto = new ExceptionResponseDto( 404, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
     }

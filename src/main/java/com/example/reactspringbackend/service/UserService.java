@@ -4,24 +4,22 @@ package com.example.reactspringbackend.service;
 import com.example.reactspringbackend.dto.*;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
-import org.springframework.data.jpa.repository.Modifying;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface UserService {
-    void registerNewUser(SignUpRequestDto requestDto) throws RegisterNewUserException, NotUniqueEmailException;
+    void registerNewUser(SignUpRequestDto requestDto) throws RegisterNewUserException, NotUniqueMobileNumberException;
 
     List<UserEntity> getAllUsers();
 
 
-    void deleteUserByEmail(String email) throws UserNotFoundWithThisEmail;
+    void deleteUserByEmail(String email) throws UserNotFoundWithThisMobileNumber;
 
-    boolean login(LoginDto loginDto) throws UserNotFoundWithThisEmail;
+    boolean login(LoginDto loginDto) throws UserNotFoundWithThisMobileNumber;
 
-    UserDetailsDto getUserDetails(String email) throws InternalServerError, UserNotFoundWithThisEmail;
+    UserDetailsDto getUserDetails(String mobileNumber) throws InternalServerError, UserNotFoundWithThisMobileNumber;
 
-    void addMoney(AddMoneyDto dto) throws UserNotFoundWithThisEmail;
+    void addMoney(AddMoneyDto dto) throws UserNotFoundWithThisMobileNumber;
 
-    void sendMoney(MoneyTransferDto dto) throws UserNotFoundWithThisEmail, InsufficientBalanceException;
+    void sendMoney(MoneyTransferDto dto) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException;
 }

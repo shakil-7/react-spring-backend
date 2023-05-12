@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Data
 public class ResponseDto {
-    private HttpStatus status;
+    private int status;
     private String message;
 
 
@@ -13,7 +13,7 @@ public class ResponseDto {
         this.message = message;
     }
 
-    public ResponseDto(HttpStatus status, String message) {
+    public ResponseDto(int status, String message) {
         this.status = status;
         this.message = message;
     }

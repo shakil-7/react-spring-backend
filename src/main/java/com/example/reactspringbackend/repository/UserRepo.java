@@ -12,4 +12,7 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByEmail(String email);
 
     void deleteByEmail(String email);
+
+    Optional<UserEntity> findByMobileNumber(String mobileNumber);
+
 }

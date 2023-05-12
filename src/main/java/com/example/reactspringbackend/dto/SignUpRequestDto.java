@@ -6,6 +6,7 @@ import lombok.Data;
 public class SignUpRequestDto {
     private String name;
     private String email;
+    private String mobileNumber;
     private String password;
     private String gender;
 }

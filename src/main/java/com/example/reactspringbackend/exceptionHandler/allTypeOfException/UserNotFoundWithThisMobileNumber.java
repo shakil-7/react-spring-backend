@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class UserNotFoundWithThisEmail extends Throwable{
+public class UserNotFoundWithThisMobileNumber extends Throwable{
     private String message;
-    public UserNotFoundWithThisEmail(String message) {
+    public UserNotFoundWithThisMobileNumber(String message) {
         this.message = message;
     }
 }

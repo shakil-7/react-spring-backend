@@ -14,6 +14,7 @@ public class UserDetailsDto {
     private String name;
     private String email;
     private String password;
+    private String mobileNumber;
     private String gender;
 
     private long accountNumber;
@@ -26,6 +27,7 @@ public class UserDetailsDto {
         this.name = user.getName();
         this.email = user.getEmail();
         this.password = user.getPassword();
+        this.mobileNumber = user.getMobileNumber();
         this.gender = user.getGender();
 
         this.accountNumber = account.getId();

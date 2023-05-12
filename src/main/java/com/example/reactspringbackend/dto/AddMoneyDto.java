@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddMoneyDto {
-    private String email;
+    private String mobileNumber;
     private double amount;
 }

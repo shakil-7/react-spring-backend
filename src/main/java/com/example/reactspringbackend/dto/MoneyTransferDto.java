@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MoneyTransferDto {
 
-    private String senderEmail;
-    private String receiverEmail;
+    private String senderPhoneNumber;
+    private String receiverPhoneNumber;
     private double amount;
 }

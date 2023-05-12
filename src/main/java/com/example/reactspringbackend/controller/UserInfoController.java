@@ -5,7 +5,7 @@ import com.example.reactspringbackend.dto.UserDetailsDto;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InternalServerError;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.RegisterNewUserException;
-import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisEmail;
+import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisMobileNumber;
 import com.example.reactspringbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,16 +32,16 @@ public class UserInfoController {
 
 
     @GetMapping("/user")
-    public ResponseEntity<UserDetailsDto> getUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
+    public ResponseEntity<UserDetailsDto> getUserByMobileNumber(@RequestParam String mobileNumber) throws UserNotFoundWithThisMobileNumber, InternalServerError, RegisterNewUserException {
 //        System.out.println("email = " + email);
-        UserDetailsDto userDetails = userService.getUserDetails(email);
+        UserDetailsDto userDetails = userService.getUserDetails(mobileNumber);
         return new ResponseEntity<UserDetailsDto>(userDetails, HttpStatus.OK);
     }
 
     @DeleteMapping("/user")
     @Modifying
     @Transactional
-    public ResponseEntity<?> deleteUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail {
+    public ResponseEntity<?> deleteUserByEmail(@RequestParam String email) throws UserNotFoundWithThisMobileNumber {
         userService.deleteUserByEmail(email);
         return ResponseEntity.ok(new ResponseDto("successfully deleted"));
     }
