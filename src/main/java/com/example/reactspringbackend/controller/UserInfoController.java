@@ -33,7 +33,7 @@ public class UserInfoController {
 
     @GetMapping("/user")
     public ResponseEntity<UserDetailsDto> getUserByEmail(@RequestParam String email) throws UserNotFoundWithThisEmail, InternalServerError, RegisterNewUserException {
-        System.out.println("email = " + email);
+//        System.out.println("email = " + email);
         UserDetailsDto userDetails = userService.getUserDetails(email);
         return new ResponseEntity<UserDetailsDto>(userDetails, HttpStatus.OK);
     }

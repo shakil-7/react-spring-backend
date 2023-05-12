@@ -25,7 +25,7 @@ public class LoginController {
 
         boolean canLogin = userService.login(loginDto);
 
-        System.out.println("loginDto = " + loginDto);
+//        System.out.println("loginDto = " + loginDto);
 
 
         if(canLogin) return ResponseEntity.ok(new ResponseDto("Successfully logged in"));

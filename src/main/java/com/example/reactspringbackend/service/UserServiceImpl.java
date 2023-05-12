@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService{
 
 
         if(user.isPresent()){
-            System.out.println("user.get() = " + user.get());
+//            System.out.println("user.get() = " + user.get());
             AccountEntity account = accountRepo.findByUser(user.get());
             UserDetailsDto details = new UserDetailsDto(user.get(), account);
             return details;

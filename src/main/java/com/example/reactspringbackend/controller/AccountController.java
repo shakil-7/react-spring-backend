@@ -23,7 +23,7 @@ public class AccountController {
 
     @PostMapping("/add_money")
     public ResponseEntity<?> addMoney(@RequestBody AddMoneyDto dto) throws UserNotFoundWithThisEmail {
-
+//        System.out.println(dto);
         userService.addMoney(dto);
         return new ResponseEntity< ResponseDto > (new ResponseDto("success"),HttpStatus.OK);
     }
