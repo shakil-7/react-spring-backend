@@ -2,13 +2,16 @@ package com.example.reactspringbackend.service;
 
 import com.example.reactspringbackend.dto.*;
 import com.example.reactspringbackend.entity.AccountEntity;
+import com.example.reactspringbackend.entity.TransactionEntity;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 import com.example.reactspringbackend.repository.AccountRepo;
+import com.example.reactspringbackend.repository.TransactionRepo;
 import com.example.reactspringbackend.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private AccountRepo accountRepo;
+
+    @Autowired
+    private TransactionRepo transactionRepo;
 
     @Override
     public void registerNewUser(SignUpRequestDto requestDto) throws RegisterNewUserException, NotUniqueMobileNumberException {
@@ -138,6 +144,17 @@ public class UserServiceImpl implements UserService{
                     receiverAccount.setBalance(receiverCurrentBalance + amount);
                     accountRepo.save(senderAccount);
                     accountRepo.save(receiverAccount);
+
+
+                    /// success
+
+                    TransactionEntity transaction = new TransactionEntity(
+                            senderPhoneNumber, receiverPhoneNumber, amount,
+                            new Date(), true, "debited"
+                    );
+
+                    transactionRepo.save(transaction);
+
                 }
 
             }
@@ -160,6 +177,13 @@ public class UserServiceImpl implements UserService{
         else{
             throw new UserNotFoundWithThisMobileNumber("There is no user with this email");
         }
+    }
+
+    @Override
+    public List<TransactionEntity> getTransaction(String mobileNumber) {
+        List<TransactionEntity> queryResult = transactionRepo.findAll();
+        return queryResult;
+//        List<TransactionDetailsDto> dto = new ArrayList<TransactionDetailsDto>();
     }
 
     private boolean isUniqueMobileNumber(String mobileNumber) {

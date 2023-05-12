@@ -2,6 +2,7 @@ package com.example.reactspringbackend.service;
 
 
 import com.example.reactspringbackend.dto.*;
+import com.example.reactspringbackend.entity.TransactionEntity;
 import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 
@@ -24,4 +25,6 @@ public interface UserService {
     void sendMoney(MoneyTransferDto dto) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException;
 
     void deleteUserByMobileNumber(String mobileNumber) throws UserNotFoundWithThisMobileNumber;
+
+    List<TransactionEntity> getTransaction(String mobileNumber);
 }

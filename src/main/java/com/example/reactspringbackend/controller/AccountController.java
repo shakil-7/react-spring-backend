@@ -4,16 +4,16 @@ package com.example.reactspringbackend.controller;
 import com.example.reactspringbackend.dto.AddMoneyDto;
 import com.example.reactspringbackend.dto.MoneyTransferDto;
 import com.example.reactspringbackend.dto.ResponseDto;
+import com.example.reactspringbackend.entity.TransactionEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InsufficientBalanceException;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisMobileNumber;
 import com.example.reactspringbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin("*")
@@ -32,8 +32,15 @@ public class AccountController {
 
     @PostMapping("/send_money")
     public ResponseEntity<?> sendMoney(@RequestBody MoneyTransferDto dto) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException {
-        System.out.println("dto = " + dto);
+//        System.out.println("dto = " + dto);
         userService.sendMoney(dto);
         return new ResponseEntity< ResponseDto> (new ResponseDto("success"),HttpStatus.OK);
+    }
+
+    @GetMapping("/user/transaction")
+    public ResponseEntity<List<TransactionEntity>> getTransaction(@RequestParam(required = false) String mobileNumber) {
+//        System.out.println("mobileNumber = " + mobileNumber);
+        List<TransactionEntity> allTransaction = userService.getTransaction(mobileNumber);
+        return new ResponseEntity<List<TransactionEntity>> (allTransaction, HttpStatus.OK);
     }
 }

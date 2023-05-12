@@ -23,4 +23,5 @@ public class UserEntity {
     private String mobileNumber;
     private String password;
     private String gender;
+
 }
