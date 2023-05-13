@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,7 @@ public class UserInfoController {
     private UserService userService;
 
     @GetMapping("/all-user")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<UserEntity>> getAllUserInfo() {
 
         List<UserEntity> allUsers = userService.getAllUsers();

@@ -7,6 +7,7 @@ import com.example.reactspringbackend.entity.UserEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void registerNewUser(SignUpRequestDto requestDto) throws RegisterNewUserException, NotUniqueMobileNumberException;
@@ -27,4 +28,8 @@ public interface UserService {
     void deleteUserByMobileNumber(String mobileNumber) throws UserNotFoundWithThisMobileNumber;
 
     List<TransactionDetailsDto> getTransaction(String mobileNumber);
+
+    Optional<UserEntity> findByMobileNumber(String mobileNumber);
+
+    Optional<UserEntity> findByUsername(String username);
 }

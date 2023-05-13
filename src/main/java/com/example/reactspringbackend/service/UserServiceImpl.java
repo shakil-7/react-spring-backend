@@ -195,6 +195,16 @@ public class UserServiceImpl implements UserService{
 //        List<TransactionDetailsDto> dto = new ArrayList<TransactionDetailsDto>();
     }
 
+    @Override
+    public Optional<UserEntity> findByMobileNumber(String mobileNumber) {
+        return userRepo.findByMobileNumber(mobileNumber);
+    }
+
+    @Override
+    public Optional<UserEntity> findByUsername(String username) {
+        return userRepo.findByMobileNumber(username);
+    }
+
     private boolean isUniqueMobileNumber(String mobileNumber) {
         Optional<UserEntity> user = userRepo.findByMobileNumber(mobileNumber);
         return user.isEmpty();

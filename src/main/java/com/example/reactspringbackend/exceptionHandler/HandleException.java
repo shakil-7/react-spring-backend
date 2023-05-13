@@ -49,4 +49,5 @@ public class HandleException {
         ExceptionResponseDto responseDto = new ExceptionResponseDto( 400, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
     }
+
 }

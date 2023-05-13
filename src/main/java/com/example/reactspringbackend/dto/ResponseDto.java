@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 public class ResponseDto {
     private int status;
     private String message;
+//    private String jwtToken;
 
 
     public ResponseDto(String message) {

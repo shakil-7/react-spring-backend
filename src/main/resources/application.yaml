@@ -5,6 +5,10 @@ email:
   attachments:
     path: /home/shakil/Downloads/Parts of Different Work/GmailSMTP/attachmentsFolder/some text file
 spring:
+  security:
+    user:
+      name: admin
+      password: admin
   mail:
     host: smtp.gmail.com
     password: zqfmcewvejghwdhy
