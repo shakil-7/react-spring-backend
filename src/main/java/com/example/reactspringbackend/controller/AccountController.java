@@ -4,6 +4,7 @@ package com.example.reactspringbackend.controller;
 import com.example.reactspringbackend.dto.AddMoneyDto;
 import com.example.reactspringbackend.dto.MoneyTransferDto;
 import com.example.reactspringbackend.dto.ResponseDto;
+import com.example.reactspringbackend.dto.TransactionDetailsDto;
 import com.example.reactspringbackend.entity.TransactionEntity;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.InsufficientBalanceException;
 import com.example.reactspringbackend.exceptionHandler.allTypeOfException.UserNotFoundWithThisMobileNumber;
@@ -38,9 +39,10 @@ public class AccountController {
     }
 
     @GetMapping("/user/transaction")
-    public ResponseEntity<List<TransactionEntity>> getTransaction(@RequestParam(required = false) String mobileNumber) {
+    public ResponseEntity<List<TransactionDetailsDto>> getTransaction(@RequestParam(required = false) String mobileNumber) {
 //        System.out.println("mobileNumber = " + mobileNumber);
-        List<TransactionEntity> allTransaction = userService.getTransaction(mobileNumber);
-        return new ResponseEntity<List<TransactionEntity>> (allTransaction, HttpStatus.OK);
+        List<TransactionDetailsDto> allTransaction = userService.getTransaction(mobileNumber);
+        System.out.println("allTransaction = " + allTransaction);
+        return new ResponseEntity<List<TransactionDetailsDto>> (allTransaction, HttpStatus.OK);
     }
 }

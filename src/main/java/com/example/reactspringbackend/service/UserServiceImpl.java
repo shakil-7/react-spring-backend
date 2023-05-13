@@ -11,9 +11,10 @@ import com.example.reactspringbackend.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static com.fasterxml.jackson.core.io.NumberInput.parseDouble;
+import static com.fasterxml.jackson.core.io.NumberInput.parseLong;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -150,20 +151,18 @@ public class UserServiceImpl implements UserService{
 
                     TransactionEntity transaction = new TransactionEntity(
                             senderPhoneNumber, receiverPhoneNumber, amount,
-                            new Date(), true, "debited"
+                            new Date(), true, "-"
                     );
-
                     transactionRepo.save(transaction);
-
                 }
 
             }
             else{
-                throw new UserNotFoundWithThisMobileNumber("No user with email: \n" + dto.getReceiverPhoneNumber());
+                throw new UserNotFoundWithThisMobileNumber("User not found: \n" + dto.getReceiverPhoneNumber());
             }
         }
         else{
-            throw new UserNotFoundWithThisMobileNumber("No user with email: \n" + dto.getSenderPhoneNumber());
+            throw new UserNotFoundWithThisMobileNumber("User not found: \n" + dto.getSenderPhoneNumber());
         }
     }
 
@@ -180,9 +179,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<TransactionEntity> getTransaction(String mobileNumber) {
-        List<TransactionEntity> queryResult = transactionRepo.findAll();
-        return queryResult;
+    public List<TransactionDetailsDto> getTransaction(String mobileNumber) {
+//        return transactionRepo.findAll();
+        List<Object[]> queryResult = transactionRepo.getAllTransactionFromSingleUser(mobileNumber);
+
+        List<TransactionDetailsDto> result = new ArrayList<TransactionDetailsDto>();
+
+        for(int i=0;i<queryResult.size();i++){
+            String str = Arrays.toString(queryResult.get(i));
+            str = str.substring(1,str.length()-1);
+            List<String> arrStr = List.of(str.split(","));
+            result.add(new TransactionDetailsDto(parseLong(arrStr.get(0)), arrStr.get(1), arrStr.get(2), parseDouble(arrStr.get(3)) ));
+        }
+        return result;
 //        List<TransactionDetailsDto> dto = new ArrayList<TransactionDetailsDto>();
     }
 

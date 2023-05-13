@@ -26,5 +26,5 @@ public interface UserService {
 
     void deleteUserByMobileNumber(String mobileNumber) throws UserNotFoundWithThisMobileNumber;
 
-    List<TransactionEntity> getTransaction(String mobileNumber);
+    List<TransactionDetailsDto> getTransaction(String mobileNumber);
 }
