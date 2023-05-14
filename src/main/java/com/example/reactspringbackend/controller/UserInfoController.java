@@ -33,7 +33,7 @@ public class UserInfoController {
 //    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<UserEntity>> getAllUserInfo(HttpServletRequest request) {
 
-        System.out.println("request.getHeader(\"Authorization\") = " + request.getHeader("Authorization"));
+//        System.out.println("request.getHeader(\"Authorization\") = " + request.getHeader("Authorization"));
         
         List<UserEntity> allUsers = userService.getAllUsers();
         return new ResponseEntity<List<UserEntity>>(allUsers, HttpStatus.OK);
@@ -65,6 +65,7 @@ public class UserInfoController {
     @Modifying
     @Transactional
     public ResponseEntity<?> deleteUserByMobileNumber(@RequestParam String mobileNumber) throws UserNotFoundWithThisMobileNumber {
+        System.out.println("mobileNumber = " + mobileNumber);
         userService.deleteUserByMobileNumber(mobileNumber);
         return ResponseEntity.ok(new ResponseDto("successfully deleted"));
     }
