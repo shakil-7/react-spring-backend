@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -25,15 +26,19 @@ public class AccountController {
     private UserService userService;
 
     @PostMapping("/add_money")
-    public ResponseEntity<?> addMoney(@RequestBody AddMoneyDto dto) throws UserNotFoundWithThisMobileNumber {
+    public ResponseEntity<?> addMoney(@RequestBody AddMoneyDto dto, HttpServletRequest request) throws UserNotFoundWithThisMobileNumber {
+
+//        System.out.println("request = " + request.getHeader("Authorization"));
 //        System.out.println(dto);
         userService.addMoney(dto);
         return new ResponseEntity< ResponseDto > (new ResponseDto("success"),HttpStatus.OK);
     }
 
     @PostMapping("/send_money")
-    public ResponseEntity<?> sendMoney(@RequestBody MoneyTransferDto dto) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException {
+    public ResponseEntity<?> sendMoney(@RequestBody MoneyTransferDto dto, HttpServletRequest request) throws UserNotFoundWithThisMobileNumber, InsufficientBalanceException {
 //        System.out.println("dto = " + dto);
+
+        System.out.println("request = " + request.getHeader("Authorization"));
         userService.sendMoney(dto);
         return new ResponseEntity< ResponseDto> (new ResponseDto("success"),HttpStatus.OK);
     }
