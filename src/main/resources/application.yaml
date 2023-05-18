@@ -11,7 +11,7 @@ spring:
       password: admin
   mail:
     host: smtp.gmail.com
-    password: zqfmcewvejghwdhy
+    password: engidpnbhcxzabsn
     port: 587
     properties:
       mail:

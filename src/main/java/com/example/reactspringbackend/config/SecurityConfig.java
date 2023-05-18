@@ -42,7 +42,7 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/registration", "/login").permitAll()
+                .antMatchers("/registration", "/login", "/forgot_password", "/reset-password**").permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/*")
