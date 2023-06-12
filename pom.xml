@@ -102,6 +102,15 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+
+<!--		for dynamodb-->
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+			<version>1.11.967</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
