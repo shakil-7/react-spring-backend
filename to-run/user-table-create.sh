@@ -1,7 +1,7 @@
 aws dynamodb --endpoint-url=http://localhost:4566 create-table \
     --table-name User \
     --attribute-definitions \
-        AttributeName=id,AttributeType=N \
+        AttributeName=id,AttributeType=S \
     --key-schema \
         AttributeName=id,KeyType=HASH \
 --provisioned-throughput \

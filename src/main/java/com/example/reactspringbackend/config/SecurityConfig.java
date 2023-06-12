@@ -48,7 +48,11 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/registration", "/login", "/forgot_password", "/reset-password**").permitAll()
+                .antMatchers("/registration",
+                        "/login",
+                        "/forgot_password",
+                        "/registration-dynamodb",
+                        "/reset-password**").permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/*")
