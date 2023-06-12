@@ -1,5 +1,5 @@
 aws dynamodb --endpoint-url=http://localhost:4566 create-table \
-    --table-name Student \
+    --table-name User \
     --attribute-definitions \
         AttributeName=id,AttributeType=N \
     --key-schema \
